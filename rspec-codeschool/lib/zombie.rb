@@ -5,8 +5,12 @@ class Zombie
   @name = 'Ash'
   @brains = 0
   end
-  
+
   def hungry?
+    true
+  end
+
+  def dead?
     true
   end
 end

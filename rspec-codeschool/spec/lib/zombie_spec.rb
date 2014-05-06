@@ -21,4 +21,48 @@ describe Zombie do
     zombie = Zombie.new
     zombie.should be_hungry
   end
+
+  it "responds to name" do
+    zombie = Zombie.new
+    zombie.should respond_to(:name)
+  end
+
+  it "subject responds to name" do
+    subject.should respond_to(:name)
+  end
+
+  it "anon subject responds to name" do
+    should respond_to(:name)
+  end
+  
+  #same as:
+  
+  it {should respond_to(:name)}
+
+#-----------#
+  it { subject.name.should == 'Ash'}
+
+  #same as:
+
+  its(:name) {should == 'Ash'}
+
+  #use the zomie string as an alias for subject to avoid confusion on curent subject
+  context "determine if dead" do
+    subject(:zombie){Zombie.new}
+
+    it "should be dead" do
+      zombie.should be_dead
+    end
+    
+    #here, its creates an instance of the subject, which in this case is Zombie
+    its(:dead?) {should be_true}
+  end
 end
+
+
+
+
+
+
+
+
