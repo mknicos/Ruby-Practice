@@ -57,7 +57,29 @@ describe Zombie do
     #here, its creates an instance of the subject, which in this case is Zombie
     its(:dead?) {should be_true}
   end
+
+  #LETS REFACTOR
+
+  it 'has no name' do
+    @zombie = Zombie.new
+    @zombie.name.should be_nil?
+  end
+
+  it 'craves brains' do
+    @zombie = Zombie.new
+    @zombie.should be_craving_brains
+  end
+
+  it 'should not be hungry after eating brains' do
+    @zombie = Zombie.new
+    @zombie.hungry.should be_true
+    @zombie.eat(:brains)
+    @zombie.hungry.should be_false
+  end
 end
+
+
+
 
 
 
