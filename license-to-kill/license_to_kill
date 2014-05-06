@@ -1,0 +1,69 @@
+#!/usr/bin/env ruby
+
+$LOAD_PATH << "lib"
+$LOAD_PATH << "models"
+
+require 'environment'
+Environment.environment = ENV["ENVIRONMENT"] || "production"
+$stderr = $stdout
+
+require 'injury'
+require 'person'
+
+def menu
+<<EOS
+What do you want to do?
+1. Add Person
+2. Add Injury
+3. Evaluate Injured Person
+EOS
+end
+
+def add_person
+  puts "Who do you want to add?"
+  person_name = gets
+  return unless person_name
+  person_name.chomp!
+  person = Person.new(person_name)
+  if person.save
+    puts "#{person.name} has been added."
+  else
+    puts person.errors
+    add_person
+  end
+end
+
+def add_injury
+  puts "What is the injury you want to add?"
+  injury_name = gets
+  return unless injury_name
+  injury_name.chomp!
+  injury = Injury.new(injury_name)
+  if injury.save
+    puts "#{injury_name} has been added."
+  else
+    puts injury.errors
+    add_injury
+  end
+end
+
+# REPL
+# Read - Eval - Print Loop
+def get_menu_selection
+  puts menu
+  input = gets
+  return unless input
+  input.chomp!
+  if input == "1"
+    add_person
+  elsif input == "2"
+    add_injury
+  elsif input == "3"
+    puts "Who is injured?"
+  else
+    puts "'#{input}' is not a valid selection"
+    get_menu_selection
+  end
+end
+
+get_menu_selection
