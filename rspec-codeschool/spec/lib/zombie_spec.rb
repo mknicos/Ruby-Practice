@@ -59,10 +59,10 @@ describe Zombie do
   end
 
   #LETS REFACTOR
-
-  it 'has no name' do
+=begin
+  it 'has a name' do
     @zombie = Zombie.new
-    @zombie.name.should be_nil?
+    @zombie.name.should_not be_nil?
   end
 
   it 'craves brains' do
@@ -70,12 +70,18 @@ describe Zombie do
     @zombie.should be_craving_brains
   end
 
-  it 'should not be hungry after eating brains' do
+  it 'should still be hungry after eating brains' do
     @zombie = Zombie.new
     @zombie.hungry.should be_true
     @zombie.eat(:brains)
     @zombie.hungry.should be_false
   end
+=end
+
+  its(:name) {should_not be_nil}
+
+  it {should be_dead}
+
 end
 
 
